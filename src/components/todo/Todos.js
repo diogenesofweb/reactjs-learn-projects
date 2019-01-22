@@ -6,7 +6,7 @@ const Todos = props => {
   const todoList = todos.length ? (
     todos.map(todo => {
       return (
-        <li className="collection-item black-text grey" key={todo.id}>
+        <li className="collection-item blue-grey darken-2" key={todo.id}>
           <span>{todo.content}</span>
           <a
             href="#!"
@@ -19,13 +19,13 @@ const Todos = props => {
       );
     })
   ) : (
-    <li className="collection-item black-text grey">
+    <li className="collection-item blue-grey darken-2">
       <span>No todo's !!!</span>
     </li>
   );
 
   return (
-    <ul className="collection grey darken-3">
+    <ul className="collection blue-grey darken-4">
       <li className="collection-header">
         <h5 className="center">List of Todo's</h5>
       </li>

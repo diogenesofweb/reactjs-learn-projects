@@ -1,33 +1,29 @@
 import React, { Component } from "react";
-import Todos from "./Todos";
-// imp
-import AddTodo from "./AddTodo";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Post from "./components/Post";
+import Quote from "./components/Quote";
+import Todo from "./components/todo/Todo";
+import Calculator from "./components/calculator/Calculator";
+import Pomodoro from "./components/pomodoro/Pomodoro";
 
 class App extends Component {
-  // rconst
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      todos: [{ id: 1, content: "чай" }, { id: 2, content: "медитація" }]
-    };
-  }
-  deleteTodo = id => {
-    const todos = this.state.todos.filter(e => e.id !== id);
-    this.setState({ todos });
-  };
-  addTodo = todo => {
-    todo.id = Math.random();
-    const todos = [...this.state.todos, todo];
-    this.setState({ todos });
-  };
   render() {
     return (
-      <div className="container">
-        <h3 className="center section">Todo's App</h3>
-        <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} />
-        <AddTodo addTodo={this.addTodo} />
-      </div>
+      <BrowserRouter>
+        <React.Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/quote" component={Quote} />
+            <Route path="/todos" component={Todo} />
+            <Route path="/calculator" component={Calculator} />
+            <Route path="/pomodoro" component={Pomodoro} />
+            <Route path="/:post_id" component={Post} />
+          </Switch>
+        </React.Fragment>
+      </BrowserRouter>
     );
   }
 }
