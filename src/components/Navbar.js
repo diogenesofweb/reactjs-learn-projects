@@ -6,9 +6,9 @@ import { Link, NavLink, withRouter } from "react-router-dom";
 const Navbar = props => {
   //console.log(props);
   return (
-    <nav className="container">
-      <div className="nav-wrapper blue-grey darken-4">
-        <a href="#!" className="brand-logo left">
+    <nav className="blue-grey darken-4">
+      <div className="nav-wrapper ">
+        <a href="#!" className="brand-logo left hide-on-small-only">
           <i className="material-icons right">waves</i>
         </a>
         <ul id="nav-mobile" className="right">
