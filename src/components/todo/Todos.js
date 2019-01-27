@@ -13,7 +13,7 @@ const Todos = props => {
             className="secondary-content"
             onClick={() => deleteTodo(todo.id)}
           >
-            <i className="material-icons red-text text-darken-3">delete</i>
+            <i className="material-icons red-text text-lighten-1">delete</i>
           </a>
         </li>
       );

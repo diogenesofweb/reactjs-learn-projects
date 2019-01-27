@@ -9,7 +9,7 @@ class Todo extends Component {
     super(props);
 
     this.state = {
-      todos: [{ id: 1, content: "Обдумати цілі / завдання на день" }]
+      todos: [{ id: 1, content: "Написати лист завдань, очевидно ж" }]
     };
   }
   deleteTodo = id => {
