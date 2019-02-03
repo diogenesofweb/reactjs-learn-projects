@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { MyConsomer } from "../MyContext";
 import Length from "./Length";
 import Session from "./Session";
 import "./Pomodoro.css";
@@ -109,32 +110,45 @@ export default class Pomodoro extends Component {
 
   render() {
     return (
-      <div id="clock" className="container center red-text text-accent-2">
-        <h1>Pomodoro Clock</h1>
-        <div className="row">
-          <Length
-            compName="Break"
-            length={this.state.Break}
-            handleClick={this.handleLenghtClick}
-          />
-          <div className="col l2 hide-on-med-and-down">
-            <i className="medium material-icons">alarm_on</i>
-          </div>
-          <Length
-            compName="Session"
-            length={this.state.Session}
-            handleClick={this.handleLenghtClick}
-          />
-        </div>
-        <Session
-          current={this.state.current}
-          display={this.state.display}
-          seconds={this.state.seconds}
-          running={this.state.running}
-          handlePlay={this.handlePlay}
-          handleReset={this.handleReset}
-        />
-      </div>
+      <MyConsomer>
+        {({ theme, lang }) => {
+          const textColor =
+            theme === "green"
+              ? "green-text text-darken-4"
+              : "red-text text-accent-2";
+
+          const title = lang === "ua" ? "Помідор" : "Pomodoro Clock";
+
+          return (
+            <div id="clock" className={`container center ${textColor}`}>
+              <h1>{title}</h1>
+              <div className="row">
+                <Length
+                  compName="Break"
+                  length={this.state.Break}
+                  handleClick={this.handleLenghtClick}
+                />
+                <div className="col l2 hide-on-med-and-down">
+                  <i className="medium material-icons">alarm_on</i>
+                </div>
+                <Length
+                  compName="Session"
+                  length={this.state.Session}
+                  handleClick={this.handleLenghtClick}
+                />
+              </div>
+              <Session
+                current={this.state.current}
+                display={this.state.display}
+                seconds={this.state.seconds}
+                running={this.state.running}
+                handlePlay={this.handlePlay}
+                handleReset={this.handleReset}
+              />
+            </div>
+          );
+        }}
+      </MyConsomer>
     );
   }
 }

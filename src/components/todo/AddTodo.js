@@ -24,7 +24,7 @@ export class AddTodo extends Component {
       <div className="row">
         <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
-            <div className="input-field col s8 offset-s2">
+            <div className="input-field col s12 l10 offset-l1">
               <i className="material-icons prefix">mode_edit</i>
               <input
                 id="icon_prefix2"

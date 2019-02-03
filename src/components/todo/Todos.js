@@ -2,11 +2,12 @@
 import React from "react";
 
 const Todos = props => {
-  const { todos, deleteTodo } = props;
+  // console.log({ props });
+  const { todos, deleteTodo, theme } = props;
   const todoList = todos.length ? (
     todos.map(todo => {
       return (
-        <li className="collection-item blue-grey darken-2" key={todo.id}>
+        <li className={`collection-item ${theme} lighten-1`} key={todo.id}>
           <span>{todo.content}</span>
           <a
             href="#!"
@@ -19,15 +20,15 @@ const Todos = props => {
       );
     })
   ) : (
-    <li className="collection-item blue-grey darken-2">
+    <li className={`collection-item ${theme} lighten-1`}>
       <span>No todo's !!!</span>
     </li>
   );
 
   return (
-    <ul className="collection blue-grey darken-4">
+    <ul className={`collection ${theme} darken-4`}>
       <li className="collection-header">
-        <h5 className="center">List of Todo's</h5>
+        <h5 className="center white-text">List of Todo's</h5>
       </li>
       {todoList}
     </ul>

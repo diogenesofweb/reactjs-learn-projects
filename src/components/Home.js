@@ -11,10 +11,10 @@ export class Home extends Component {
         return (
           <div className="row" key={el.id}>
             <div className="col s12 m8 offset-m2 ">
-              <div className="card blue-grey darken-3">
+              <div className="card blue-grey darken-1">
                 <div className="card-content white-text">
                   <Link to={`/${el.id}`}>
-                    <span className="card-title">{el.title}</span>
+                    <span className="card-title white-text">{el.title}</span>
                   </Link>
                   <p>{el.body}</p>
                 </div>
@@ -26,7 +26,18 @@ export class Home extends Component {
     ) : (
       <p className="center">No posts</p>
     );
-    return <div className="container section">{list}</div>;
+    return (
+      <div className="container section">
+        <div className="center">
+          <p>Click on "UA" in top left corner to switch language</p>
+          <p>
+            Click on <i className="material-icons">brightness_3</i>
+            in top left corner to switch theme
+          </p>
+        </div>
+        {list}
+      </div>
+    );
   }
 }
 
