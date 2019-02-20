@@ -1,4 +1,3 @@
-// rce
 import React, { Component } from "react";
 import Operations from "./Operations";
 import Numbers from "./Numbers";
@@ -10,78 +9,77 @@ export class Calculator extends Component {
 
     this.state = {
       result: "0",
-      input: "0"
+      num1: "0",
+      num2: "",
+      oper: ""
     };
   }
 
   handleOpers = e => {
-    const value = e.target.value;
-    const inputPrev = this.state.input;
-    const check = /\d\s[+-/*]\s\d/;
+    const oper = e.target.value;
 
     const addOper = () => {
-      const regex = /\s[+-/*]\s$/;
-      const input = regex.test(inputPrev)
-        ? inputPrev.replace(regex, value)
-        : inputPrev + value;
-      this.setState({ input });
+      this.setState({ oper });
     };
 
-    const addRes = () => {
+    const runRes = () => {
       this.handleResult();
-      const func = () => this.setState({ input: this.state.input + value });
-      setTimeout(func, 100);
     };
 
-    check.test(inputPrev) ? addRes() : addOper();
+    this.state.num2 ? runRes() : addOper();
   };
 
   handleClick = e => {
-    const { input } = this.state;
-    let { value } = e.target;
+    const { value } = e.target;
 
-    const addNum = () => {
-      const dotRegex = /[.](?!\d*\s)/g;
-      if (value === "." && dotRegex.test(input)) value = "";
+    const addNum = key => {
+      // console.log("addNum");
+      const regex = /^0(?![.\s])/;
+      if (value === "." && /[.]/.test(this.state[key])) return;
+      const num = (this.state[key] + value).replace(regex, "");
 
-      const val = input + value;
-      const regex = /^0(?![.\s])|(?<=\s)0\d/g;
-      const inputNew = val.replace(regex, "");
-      this.setState({ input: inputNew });
+      this.setState({ [key]: num });
     };
 
-    typeof input === "number"
-      ? this.setState({ input: value, result: "0" })
-      : addNum();
+    !this.state.oper ? addNum("num1") : addNum("num2");
   };
 
-  handleClear = () => this.setState({ result: "0", input: "0" });
+  handleClear = () =>
+    this.setState({
+      result: "0",
+      num1: "0",
+      num2: "",
+      oper: ""
+    });
 
   handleResult = () => {
-    const regex = /[+-/*]$/;
-    const split = this.state.input.toString().split(" ");
-    const arr = split.map(e => (regex.test(e) ? e : parseFloat(e)));
+    // console.log("handleResult")
+    const { num1, num2, oper } = this.state;
+
+    const val1 = parseFloat(num1);
+    const val2 = parseFloat(num2);
 
     let result;
 
-    switch (arr[1]) {
-      case "/":
-        result = arr[0] / arr[2];
+    switch (oper) {
+      case " / ":
+        result = val1 / val2;
         break;
-      case "*":
-        result = arr[0] * arr[2];
+      case " * ":
+        result = val1 * val2;
         break;
-      case "-":
-        result = arr[0] - arr[2];
+      case " - ":
+        result = val1 - val2;
         break;
-      case "+":
-        result = arr[0] + arr[2];
+      case " + ":
+        result = val1 + val2;
         break;
       default:
         console.log("failed handleResult");
     }
+    // console.log({result});
 
-    if (result === undefined) {
+    if (result === undefined || isNaN(result)) {
       return this.handleClear();
     }
 
@@ -89,7 +87,12 @@ export class Calculator extends Component {
       ? result
       : result.toFixed(2);
 
-    this.setState({ result: integerOrDecimal2, input: integerOrDecimal2 });
+    this.setState({
+      result: integerOrDecimal2,
+      num1: integerOrDecimal2,
+      num2: "",
+      oper: ""
+    });
   };
 
   render() {
@@ -102,9 +105,11 @@ export class Calculator extends Component {
                 <span className="card-title right-align">
                   {this.state.result}
                 </span>
-                <span className="card-title right-align">
-                  {this.state.input}
-                </span>
+                <div className="card-title right-align">
+                  <span>{this.state.num1}</span>
+                  <span>{this.state.oper}</span>
+                  <span>{this.state.num2}</span>
+                </div>
               </div>
               <Operations handleOpers={this.handleOpers} />
               <div className="row">

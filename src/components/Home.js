@@ -16,7 +16,7 @@ export class Home extends Component {
                   <Link to={`/${el.id}`}>
                     <span className="card-title white-text">{el.title}</span>
                   </Link>
-                  <p>{el.body}</p>
+                  <p>{el.body.slice(0, 100) + "..."}</p>
                 </div>
               </div>
             </div>
